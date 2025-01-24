@@ -2,10 +2,8 @@
 
 Implementation of the lucide icon library for Vue applications.
 
-## Vue 2 or Vue 3
-
-::: tip
-This version of lucide is for Vue 2, For Vue 3 go to [lucide-vue-next ->](lucide-vue-next)
+::: danger
+This package is deprecated. Vue 2 is EOF  See [Announcement](https://v2.vuejs.org/eol/). Migrate to Vue 3.
 :::
 
 ## Installation
@@ -22,6 +20,10 @@ yarn add lucide-vue
 
 ```sh [npm]
 npm install lucide-vue
+```
+
+```sh [bun]
+bun add lucide-vue
 ```
 
 :::

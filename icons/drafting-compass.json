@@ -1,5 +1,10 @@
 {
   "$schema": "../icon.schema.json",
+  "contributors": [
+    "danielbayley",
+    "karsa-mistmere",
+    "jguddas"
+  ],
   "tags": [
     "geometry",
     "trigonometry",
@@ -14,8 +19,7 @@
     "sketch"
   ],
   "categories": [
-    "shapes",
-    "maths",
+    "math",
     "design",
     "tools"
   ]

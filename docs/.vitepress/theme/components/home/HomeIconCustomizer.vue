@@ -67,7 +67,10 @@ watch(absoluteStrokeWidth, (enabled) => {
           Lucide has a lot of customization options to match the icons with your UI.
         </p>
 
-        <div class="customizer">
+        <div
+          class="customizer"
+          style="--color-picker-bg: var(--vp-input-switch-bg-color)"
+        >
           <InputField
             id="icon-color"
             label="Color"
@@ -168,16 +171,14 @@ watch(absoluteStrokeWidth, (enabled) => {
   margin-top: 32px;
   padding: 0;
   background: none;
-  max-width: 280px;
 }
 
 @media (min-width: 640px) {
-
   .card {
     display: grid;
     grid-template-columns: 8fr 10fr;
   }
-/*
+  /*
   .card-column {
     flex: 1;
   } */

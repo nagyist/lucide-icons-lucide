@@ -1,5 +1,9 @@
 {
   "$schema": "../icon.schema.json",
+  "contributors": [
+    "danielbayley",
+    "karsa-mistmere"
+  ],
   "tags": [
     "tangential",
     "shape",
@@ -10,7 +14,7 @@
   ],
   "categories": [
     "shapes",
-    "maths",
+    "math",
     "design",
     "tools"
   ]

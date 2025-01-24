@@ -1,5 +1,9 @@
 {
   "$schema": "../icon.schema.json",
+  "contributors": [
+    "danielbayley",
+    "karsa-mistmere"
+  ],
   "tags": [
     "shape",
     "circle",
@@ -13,7 +17,7 @@
   ],
   "categories": [
     "shapes",
-    "maths",
+    "math",
     "design",
     "tools"
   ]

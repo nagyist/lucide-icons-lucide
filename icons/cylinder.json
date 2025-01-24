@@ -1,5 +1,8 @@
 {
   "$schema": "../icon.schema.json",
+  "contributors": [
+    "danielbayley"
+  ],
   "tags": [
     "shape",
     "elliptical",
@@ -12,6 +15,6 @@
   "categories": [
     "shapes",
     "design",
-    "maths"
+    "math"
   ]
 }

@@ -13,28 +13,40 @@ export default eventHandler((event) => {
   const data = pathData.at(-1).slice(0, -4);
   const [name] = pathData;
 
-  const src = Buffer.from(data, 'base64').toString('utf8');
+  const src = Buffer.from(data, 'base64')
+    .toString('utf8')
+    .replaceAll('\n', '')
+    .replace(/<svg[^>]*>|<\/svg>/g, '');
 
   const children = [];
 
-  // If the icon already exists, it uses the existing icon as the backdrop.
-  // If the icon does not exist but an icon exists that starts with the same group name, that icon
-  // is used as the backdrop
-  const backdropName =
-    name in iconNodes ? name : name.split('-')[0] in iconNodes ? name.split('-')[0] : null;
-  if (backdropName) {
+  // Finds the longest matching icon to be use as the backdrop.
+  // For `square-dashed-bottom-code` it suggests `square-dashed-bottom-code`.
+  // For `square-dashed-bottom-i-dont-exist` it suggests `square-dashed-bottom`.
+  const backdropName = name
+    .split('-')
+    .map((_, idx, arr) => arr.slice(0, idx + 1).join('-'))
+    .reverse()
+    .find((groupName) => groupName in iconNodes);
+  if (!(name in iconNodes) && backdropName) {
     const iconNode = iconNodes[backdropName];
 
     const LucideIcon = createLucideIcon(backdropName, iconNode);
     const svg = renderToStaticMarkup(createElement(LucideIcon));
-    const backdropString = svg.replace(/<svg[^>]*>|<\/svg>/g, '');
+    const backdropString = svg.replaceAll('\n', '').replace(/<svg[^>]*>|<\/svg>/g, '');
 
-    children.push(createElement(Backdrop, { backdropString, src }));
+    children.push(
+      createElement(Backdrop, {
+        backdropString,
+        src,
+        color: '#777',
+      }),
+    );
   }
 
   const svg = Buffer.from(
     // We can't use jsx here, is not supported here by nitro.
-    renderToString(createElement(SvgPreview, { src, showGrid: true }, children))
+    renderToString(createElement(SvgPreview, { src, showGrid: true }, children)),
   ).toString('utf8');
 
   defaultContentType(event, 'image/svg+xml');

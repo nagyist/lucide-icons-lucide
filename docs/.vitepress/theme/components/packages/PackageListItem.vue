@@ -19,7 +19,7 @@ const props = defineProps<{
           <img v-if="packageData.iconDark" :src="packageData.iconDark" alt="" class="package-icon dark" :class="packageData.iconClass" />
         </div>
         <div class="package-title">
-          <h2 class="title">{{ props.packageData.name }}</h2>
+          <h2 class="title">{{ props.packageData?.name }}</h2>
           <a v-for="shield in props.packageData.shields" :href="shield.href" class="package-shield" rel="noreferrer noopener">
             <img :src="shield.src" :alt="shield.href" />
           </a>
@@ -33,13 +33,11 @@ const props = defineProps<{
           :href="packageData.documentation"
           text="Guide"
           theme="brand"
-          @click="go(packageData.documentation)"
         />
         <VPButton
           :href="packageData.source"
           text="Source"
           theme="alt"
-          @click="go(packageData.source)"
         />
       </footer>
     </Card>

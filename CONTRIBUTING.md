@@ -33,11 +33,13 @@ Here you can find instructions on how to implement the guidelines with different
 
 #### [Adobe Illustrator Guide](https://lucide.dev/docs/illustrator-guide)
 
-You can also [download an Adobe Illustrator template](https://lucide.dev/templates/illustrator-template.ai).
+You can also [download an Adobe Illustrator template](https://github.com/lucide-icons/lucide/blob/main/docs/public/templates/illustrator_template.ai).
 
 #### [Inkscape Guide](https://lucide.dev/docs/inkscape-guide)
 
 #### [Figma Guide](https://lucide.dev/docs/figma-guide)
+
+#### [Affinity Designer Guide](https://lucide.dev/guide/design/affinity-designer-guide)
 
 ### Submitting Multiple Icons
 
@@ -50,7 +52,7 @@ Seperate them by two PRs; 'pr-01' `arrow`, `arrow-down` and 'pr-02' `bicycle`.
 
 Before creating an icon request, please search to see if someone has requested the icon already. If there is an open request, please add a :+1:.
 
-If the icon has not already been requested, [create an issue](https://github.com/lucide-icons/lucide/issues/new?title=Icon%20Request:) with a title of `Icon request: <icon name>` and add as much information as possible.
+If the icon has not already been requested, [create an icon request issue](https://github.com/lucide-icons/lucide/issues/new?assignees=&labels=%F0%9F%99%8C+icon+request&projects=&template=01_icon_request.yml) and add as much information as possible.
 
 ### Icon Requests from Feather
 
@@ -70,10 +72,10 @@ pnpm install # Install dependencies, including the workspace packages
 
 ### Packages -> PNPM Workspaces
 
-To distribute different packages we use PNPM workspaces. Before you start make sure you are familiar with this concept. The concept of working in workspaces is created by Yarn, they have a well written introduction: [yarn workspaces](https://classic.yarnpkg.com/lang/enhttps://lucide.dev/docs/workspaces).
+To distribute different packages we use [PNPM workspaces](https://pnpm.io/workspaces). Before you start make sure you are familiar with this concept. The concept of working in workspaces is created by Yarn, they have a well written introduction: [yarn workspaces](https://classic.yarnpkg.com/en/docs/workspaces).
 
-The configured directory for workspaces is the [packages](./packages) directory, located in the root directory. There you will find all the current packages from lucide.
-There are more workspaces defined, see [`pnpm-workspace.yaml`](./pnpm-workspace.yaml).
+The configured directory for workspaces is the [packages](https://github.com/lucide-icons/lucide/tree/main/packages) directory, located in the root directory. There you will find all the current packages from lucide.
+There are more workspaces defined, see [`pnpm-workspace.yaml`](https://github.com/lucide-icons/lucide/blob/main/pnpm-workspace.yaml).
 
 > Note: One package is not managed by pnpm:  **lucide-flutter**, this package is written in Dart and used pub for publishing.
 
@@ -125,7 +127,7 @@ When adding new features to for example the icon component for a framework. It i
 
 ### Local Testing
 
-To test changes in a local project, you can use `yarn link`, `npm link` or `pnpm link` to link the package. Before you do this make sure you builded the package first.
+To test changes in a local project, you can use `yarn link`, `npm link`, `bun link` or `pnpm link` to link the package. Before you do this make sure you builded the package first.
 
 ```sh
 # in packages/lucide-react
@@ -144,15 +146,18 @@ Root directories
 
 ```sh
 lucide
-|
 ├── docs
+│   ├── guide
 ├── icons
 ├── packages
-├── scripts
-└── site
+└── scripts
 ```
 
 ### Docs
+
+The lucide.dev website is using [vitepress](https://vitepress.dev/) to generate the static website. The markdown files are located in the docs directory.
+
+### Guides
 
 Detailed documentation about: installation, guides, packages, design guides etc.
 
@@ -169,10 +174,6 @@ Includes all the (npm) packages of lucide.
 ### scripts
 
 Includes usefully scripts to automate certain jobs. Big part of the scripts is the template generation, for example it generates icon components  for all the packages. These scripts are usually executed from the "scripts" section in the package.json.
-
-### site
-
-The lucide.dev website is using [vitepress](https://vitepress.dev/) to generate the static website. The markdown files are located in the docs directory.
 
 ## Documentation
 

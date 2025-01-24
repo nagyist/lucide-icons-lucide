@@ -7,7 +7,7 @@ Implementation of the lucide icon library for svelte applications.
 ::: code-group
 
 ```sh [pnpm]
-pnpm install lucide-svelte
+pnpm add lucide-svelte
 ```
 
 ```sh [yarn]
@@ -16,6 +16,10 @@ yarn add lucide-svelte
 
 ```sh [npm]
 npm install lucide-svelte
+```
+
+```sh [bun]
+bun add lucide-svelte
 ```
 
 :::
@@ -48,14 +52,24 @@ Additional props can be passed to adjust the icon:
 <Camera color="#ff3e98" />
 ```
 
+For faster builds and load times, you can import icons directly from the `lucide-svelte/icons` directory:
+
+```svelte
+<script>
+  import CircleAlert from 'lucide-svelte/icons/circle-alert';
+</script>
+
+<CircleAlert color="#ff3e98" />
+```
+
 ## Props
 
 | name                  | type      | default      |
 | --------------------- | --------- | ------------ |
-| `size`                | *number*  | 24           |
-| `color`               | *string*  | currentColor |
-| `strokeWidth`         | *number*  | 2            |
-| `absoluteStrokeWidth` | *boolean* | false        |
+| `size`                | _number_  | 24           |
+| `color`               | _string_  | currentColor |
+| `strokeWidth`         | _number_  | 2            |
+| `absoluteStrokeWidth` | _boolean_ | false        |
 
 ### Applying props
 
@@ -71,6 +85,204 @@ To customize the appearance of an icon, you can pass custom properties as props 
 
 This results a filled phone icon.
 
+## Types
+
+The package includes type definitions for all icons. This is useful if you want to dynamically load icons with the `svelte:component` directive whether you are using TypeScript or JSDoc.
+
+### TypeScript Example
+
+#### Svelte 4
+
+```svelte
+<script lang="ts">
+	import { Home, Library, Cog, type Icon } from 'lucide-svelte';
+	import type { ComponentType } from 'svelte';
+
+	type MenuItem = {
+		name: string;
+		href: string;
+		icon: ComponentType<Icon>;
+	};
+
+	const menuItems: MenuItem[] = [
+		{
+			name: 'Home',
+			href: '/',
+			icon: Home
+		},
+		{
+			name: 'Blog',
+			href: '/blog',
+			icon: Library
+		},
+		{
+			name: 'Projects',
+			href: '/projects',
+			icon: Cog
+		}
+	];
+</script>
+
+{#each menuItems as item}
+	<a href={item.href}>
+		<svelte:component this={item.icon} />
+		<span>{item.name}</span>
+	</a>
+{/each}
+```
+
+
+#### Svelte 5
+Some changes are required since Svelte 5 [deprecates](https://svelte.dev/docs/svelte/v5-migration-guide#Components-are-no-longer-classes-Component-typing-changes) the `ComponentType` typescript type.
+
+```svelte
+<script lang="ts">
+	import { Home, Library, Cog, type Icon as IconType } from 'lucide-svelte';
+
+	type MenuItem = {
+		name: string;
+		href: string;
+		icon: typeof IconType;
+	};
+
+	const menuItems: MenuItem[] = [
+		{
+			name: 'Home',
+			href: '/',
+			icon: Home
+		},
+		{
+			name: 'Blog',
+			href: '/blog',
+			icon: Library
+		},
+		{
+			name: 'Projects',
+			href: '/projects',
+			icon: Cog
+		}
+	];
+</script>
+
+{#each menuItems as item}
+	{@const Icon = item.icon}
+	<a href={item.href}>
+		<Icon />
+		<span>{item.name}</span>
+	</a>
+{/each}
+```
+
+### JSDoc Example
+
+#### Svelte 4
+
+```svelte
+<script>
+  import { Home, Library, Cog } from 'lucide-svelte';
+
+  /**
+   * @typedef {Object} MenuItem
+   * @property {string} name
+   * @property {string} href
+   * @property {import('svelte').ComponentType<import('lucide-svelte').Icon>} icon
+   */
+
+  /** @type {MenuItem[]} */
+  const menuItems = [
+    {
+      name: 'Home',
+      href: '/',
+      icon: Home,
+    },
+    {
+      name: 'Blog',
+      href: '/blog',
+      icon: Library,
+    },
+    {
+      name: 'Projects',
+      href: '/projects',
+      icon: Cog,
+    }
+  ];
+</script>
+
+{#each menuItems as item}
+  <a href={item.href}>
+   <svelte:component this={item.icon} />
+    <span>{item.name}</span>
+  </a>
+{/each}
+```
+
+
+#### Svelte 5
+
+```svelte
+<script>
+	import { Home, Library, Cog } from 'lucide-svelte';
+
+	/**
+	 * @typedef {Object} MenuItem
+	 * @property {string} name
+	 * @property {string} href
+	 * @property {typeof import('lucide-svelte').Icon} icon
+	 */
+
+	/** @type {MenuItem[]} */
+	const menuItems = [
+		{
+			name: 'Home',
+			href: '/',
+			icon: Home
+		},
+		{
+			name: 'Blog',
+			href: '/blog',
+			icon: Library
+		},
+		{
+			name: 'Projects',
+			href: '/projects',
+			icon: Cog
+		}
+	];
+</script>
+
+{#each menuItems as item}
+	{@const Icon = item.icon}
+	<a href={item.href}>
+		<Icon />
+		<span>{item.name}</span>
+	</a>
+{/each}
+
+```
+
+For more details about typing the `svelte:component` directive, see the [Svelte documentation](https://svelte.dev/docs/typescript#types-componenttype).
+
+## With Lucide lab or custom icons
+
+[Lucide lab](https://github.com/lucide-icons/lucide-lab) is a collection of icons that are not part of the Lucide main library.
+
+They can be used by using the `Icon` component.
+All props like the regular Lucide icons can be passed to adjust the icon appearance.
+
+### Using the `Icon` component
+
+This creates a single icon based on the iconNode passed and renders a Lucide icon component.
+
+```svelte
+<script>
+import { Icon } from 'lucide-svelte';
+import { burger, sausage } from '@lucide/lab';
+</script>
+
+<Icon iconNode={burger} />
+<Icon iconNode={sausage} color="red"/>
+```
+
 ## One generic icon component
 
 It is possible to create one generic icon component to load icons, but it is not recommended.
@@ -81,13 +293,28 @@ The example below imports all ES Modules, so exercise caution when using it. Imp
 
 ### Icon Component Example
 
+#### Svelte 4
+
 ```svelte
 <script>
   import * as icons from 'lucide-svelte';
   export let name;
 </script>
 
-<svelte:component this="{icons[name]}" {...$$props} />
+<svelte:component this={icons[name]} {...$$props} />
+```
+
+#### Svelte 5
+
+```svelte
+<script>
+	import * as icons from 'lucide-svelte';
+	let { name } = $props();
+
+	const Icon = icons[name];
+</script>
+
+<Icon {...props} />
 ```
 
 #### Using the Icon Component
@@ -99,4 +326,3 @@ The example below imports all ES Modules, so exercise caution when using it. Imp
 
 <LucideIcon name="Menu" />
 ```
-
